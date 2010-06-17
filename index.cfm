@@ -2,7 +2,7 @@
 /* basic usage #1: you need to do stuff with components you don't necessarily control (i.e. you have a framework or other API you're applying to other code) */
 
 //this is how you use the propertybooster to inspect a component and get lots of data; all of this data is cached in the request scope,
-//so subsequent inspections of different objects of the same time will return the same inspection results
+//so subsequent inspections of different objects of the same type will return the same inspection results
 childOne = new ChildComponent();
 childOne.setSomeString("hi mom, it's #now()#");
 propertyBooster = new propertyBooster();
@@ -113,7 +113,7 @@ totalGetPersistentNumericProperties = getTickCount()-startTS;
 
 <br>
 
-<!--- uncomment these to see data... notice how adding dumps onto the page slows down everything else about the page? I noticed that
+<!--- uncomment these to see data... notice how adding dumps onto the page slows down everything else about the page? I noticed that 
 <cfdump var="#childWithInspectorComponents[1].getPropertyMetadata()#" expand="false" label="propertyMetadata">
 
 <br>
@@ -127,8 +127,8 @@ totalGetPersistentNumericProperties = getTickCount()-startTS;
 <br>
 
 <cfdump var="#pnps#" expand="false" label="Persistent, numeric properties">
+--->
 
- --->
 
 
 </cfoutput>

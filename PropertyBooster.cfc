@@ -65,6 +65,9 @@ component accessors="true"{
 			result = flattenProperties(object);
 			addToCache(md.name,result);
 		}
+		for(property in result.properties){
+			result.defaultVariableValues[result.properties[property].name] = deriveVariableValueFromPropertyDefinition(result.properties[property]);
+		}
 		return result;
 	}
 
@@ -90,7 +93,7 @@ component accessors="true"{
 					properties[prop]["_sort_"] = counter;
 					props[propertyName] = properties[prop];
 					//create struct of default variable values which users could use to initialize their variables and avoid duplicate property/variable definitions
-					defaultVariableValues[propertyName] = deriveVariableValueFromPropertyDefinition(props[propertyName]);
+					//defaultVariableValues[propertyName] = deriveVariableValueFromPropertyDefinition(props[propertyName]);
 					counter++;
 				}
 			}
