@@ -66,7 +66,9 @@ component accessors="true"{
 			addToCache(md.name,result);
 		}
 		for(property in result.properties){
-			result.defaultVariableValues[result.properties[property].name] = deriveVariableValueFromPropertyDefinition(result.properties[property]);
+			if (result.properties[property].type eq "date" and len(result.properties[property]["default"]) eq 0) {
+				result.defaultVariableValues[result.properties[property].name] = now();
+			}
 		}
 		return result;
 	}
@@ -93,7 +95,7 @@ component accessors="true"{
 					properties[prop]["_sort_"] = counter;
 					props[propertyName] = properties[prop];
 					//create struct of default variable values which users could use to initialize their variables and avoid duplicate property/variable definitions
-					//defaultVariableValues[propertyName] = deriveVariableValueFromPropertyDefinition(props[propertyName]);
+					defaultVariableValues[propertyName] = deriveVariableValueFromPropertyDefinition(props[propertyName]);
 					counter++;
 				}
 			}
@@ -131,7 +133,7 @@ component accessors="true"{
 				if(propStruct.default eq "") return [];
 				return deserializeJSON(propStruct.default);
 			case "date":
-				if(NOT isDate(propStruct.default)) return now();
+				if(NOT isDate(propStruct.default)) return "";
 			case "boolean":
 				if(NOT isBoolean(propStruct.default)) return true;
 			case "numeric":
@@ -139,7 +141,6 @@ component accessors="true"{
 		}
 		return propStruct.default;
 	}
-
 
 	public function getCache(){
 		return structGet("#cacheStorageScope#.#cacheName#");
